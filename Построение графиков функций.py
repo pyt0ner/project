@@ -5,7 +5,7 @@ import numpy as np
 import math
 #подключение библиотек
 
-bot = telebot.TeleBot("токен моего бота")
+bot = telebot.TeleBot("5736788008:AAFAamzTqvpQ9jYBd7Z-Rt24656K9z06Ap8")
 #токен бота
 
 s = ''
@@ -17,7 +17,7 @@ l = 0
 r = 0
 l1 = 0
 r1 = 0
-a = ['sin', 'cos', 'tan', 'sqrt', 'arctan', 'arccos', 'arcsin', 'pi']
+a = ['sqrt', 'pi', 'sin', 'cos']
 fl2 = False
 #создание нужных переменных
 
@@ -32,7 +32,7 @@ def start(message):
 	markup.add(btn)
 	#создание и добавление кнопки "ввести функцию" на клавиатуру
 	
-	bot.send_message(message.chat.id, text="Привет, {0.first_name}! Этот бот может построить график любой функции с неизвестной переменной! Для построения используй следующие обозначения:\nквадратный корень из x = sqrt(x)\nx в степени n = x^n или x**n\nкорень n-ой степени (n > 2) из x = x^(1 / n) или x**(1 / n)\nсинус x = sin(x)\nкосинус x = cos(x)\nтангенс x = tan(x)\nкотангенс x = 1 / tan(x)\nарксинус x = arsin(x)\nарккосинус x = arccos(x)\nарктангенс x = arctan(x)\nарккотангенс x = arctan(1 / x)\nлогарифм x по основанию k = log(x, k)\nлогарифм x = log(x)\nмодуль x = abs(x)\nчисло пи = pi\nПОЖАЛУЙСТА, ОБОЗНАЧАЙТЕ НЕИЗВЕСТНУЮ ПЕРЕМЕННУЮ ЗА X.".format(message.from_user), reply_markup=markup)
+	bot.send_message(message.chat.id, text="Привет, {0.first_name}! Этот бот может построить график любой функции с неизвестной переменной! Для построения используй следующие обозначения:\nквадратный корень из x = sqrt(x)\nx в степени n = x^n или x**n\nкорень n-ой степени (n > 2) из x = x^(1 / n) или x**(1 / n)\nсинус x = sin(x)\nкосинус x = cos(x)\nтангенс x = tg(x)\nкотангенс x = ctg(x)\nарксинус x = arcsin(x)\nарккосинус x = arccos(x)\nарктангенс x = arctg(x)\nлогарифм x по основанию k = log(x, k)\nлогарифм x = log(x)\nмодуль x = abs(x)\nчисло пи = pi\nПОЖАЛУЙСТА, ОБОЗНАЧАЙТЕ НЕИЗВЕСТНУЮ ПЕРЕМЕННУЮ ЗА X.".format(message.from_user), reply_markup=markup)
 	#отправление сообщения
 
 
@@ -53,7 +53,7 @@ def func1(message):
 		r = 0
 		l1 = 0
 		r1 = 0
-		a = ['sin', 'cos', 'tan', 'sqrt', 'arctan', 'arccos', 'arcsin', 'pi']
+		a = ['sqrt', 'pi', 'sin', 'cos']
 		fl2 = False
 		#"обнуляю" переменные
 		
@@ -170,6 +170,20 @@ def oy(message):
 			if i in s:
 				s = s.replace(i, 'np.' + i)
 		#добавляю "np." перед каждой подстрокой функции, которая присутствует в массиве a
+		
+		if 'arcnp.sin' in s:
+			s = s.replace('arcnp.sin', 'np.arcsin')
+		if 'arcnp.cos' in s:
+			s = s.replace('arcnp.cos', 'np.arccos')
+		#заменяю неправильно записанный arcsin и arccos, если они имеются
+		
+		if 'arctg' in s:
+			s = s.replace('arctg', 'np.arctan')		
+		if 'tg' in s:
+			s = s.replace('tg', 'np.tan')
+		if 'ctg' in s:
+			s = s.replace('ctg', '1/np.tan')		
+		#записываю арккотангенс, тангенс и котангенс в виде, который понимает библиотека NumPy
 		
 		if 'log' in s:
 			s = s.replace('log', 'math.log')
