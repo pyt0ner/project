@@ -5,7 +5,7 @@ import numpy as np
 import math
 #подключение библиотек
 
-bot = telebot.TeleBot("5736788008:AAFAamzTqvpQ9jYBd7Z-Rt24656K9z06Ap8")
+bot = telebot.TeleBot("Токен моего бота")
 #токен бота
 
 s = ''
